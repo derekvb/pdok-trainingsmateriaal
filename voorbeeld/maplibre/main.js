@@ -28,4 +28,6 @@ map.on('load', () => {(async () => {
       'id': 'geslotenvoorvisserij',
       'source': 'geslotenvoorvisserij'
    });
-})()};
+})()
+                     }
+      );
