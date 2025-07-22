@@ -8,10 +8,6 @@ const map = new maplibregl.Map({
     style: 'https://api.pdok.nl/kadaster/brt-achtergrondkaart/ogc/v1/styles/standaard__webmercatorquad?f=json', // style URL
     center: [5.66509, 51.96857], // starting position [lng, lat]
     zoom: 13, // starting zoom
-    maxBounds: [
-        [],
-        []
-    ],
     minZoom: 8,
     maxZoom: 16,
 });
