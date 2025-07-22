@@ -11,3 +11,21 @@ const map = new maplibregl.Map({
     minZoom: 6,
     maxZoom: 16,
 });
+
+map.on('load', () => {(async () => {
+   const geslotenvoorvisserij = await fetch('https://api.pdok.nl/rvo/gesloten-gebieden-visserij/ogc/v1/collections/geslotenvisserij/items?limit=100', {
+   headers: {
+      'Accept': 'application/geo+json'
+   }
+   }).then(response => response.json());
+
+   map.addSource('geslotenvoorvisserij', {
+      type: 'geojson',
+      data: geslotenvoorvisserij
+   });
+
+   map.addLayer({
+      'id': 'geslotenvoorvisserij',
+      'source': 'geslotenvoorvisserij'
+   });
+})()};
