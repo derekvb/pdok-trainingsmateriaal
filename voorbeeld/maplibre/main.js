@@ -29,8 +29,7 @@ map.on('load', () => {(async () => {
       'type': 'fill',
       "paint": {
       "fill-color": "rgba(255, 255, 255, 0)",
-      "fill-outline-color": "#000000ff",
-      "outline-width": 
+      "fill-outline-color": "#000000ff"
        }, 
       'source': 'geslotenvoorvisserij'
    });
