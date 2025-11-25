@@ -1,4 +1,5 @@
 import * as maplibregl from "https://esm.sh/maplibre-gl";
+import OGCFeatureCollection from './mapbox-gl-ogc-feature-collection.patched.js';
 
 const map = new maplibregl.Map({
     container: 'map', // container id
@@ -9,27 +10,22 @@ const map = new maplibregl.Map({
     maxZoom: 16,
 });
 
-map.on('load', () => {(async () => {
-   const geslotenvoorvisserij = await fetch('https://api.pdok.nl/rvo/gesloten-gebieden-visserij/ogc/v1/collections/geslotenvisserij/items?limit=100', {
-   headers: {
-      'Accept': 'application/geo+json'
-   }
-   }).then(response => response.json());
+map.on('load', () => {
+    const geslotenvisserijsource = 'collection-src'
 
-   map.addSource('geslotenvoorvisserij', {
-      type: 'geojson',
-      data: geslotenvoorvisserij
-   });
+    new OGCFeatureCollection(geslotenvisserijsource, map, {
+        url: 'https://api.pdok.nl/rvo/gesloten-gebieden-visserij/ogc/v1',
+        collectionId: 'geslotenvisserij',
+        limit: 100
+    })
 
-   map.addLayer({
-      'id': 'geslotenvoorvisserij',
-      'type': 'fill',
-      "paint": {
-      "fill-color": "rgba(255, 255, 255, 0)",
-      "fill-outline-color": "#000000ff"
-       }, 
-      'source': 'geslotenvoorvisserij'
-   });
-})()
-                     }
-      );
+    map.addLayer({
+        'id': 'geslotenvisserij',
+        'source': geslotenvisserijsource,
+        'type': 'fill',
+        'paint': {
+            'fill-color': '#B42222',
+            'fill-opacity': 0.7
+        }
+    })
+})
