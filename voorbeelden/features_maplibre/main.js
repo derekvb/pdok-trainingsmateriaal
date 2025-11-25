@@ -5,27 +5,27 @@ const map = new maplibregl.Map({
     container: 'map', // container id
     style: 'https://api.pdok.nl/kadaster/brt-achtergrondkaart/ogc/v1/styles/standaard__webmercatorquad?f=json', // style URL
     center: [5.4407, 52.0518], // starting position [lng, lat]
-    zoom: 7, // starting zoom
-    minZoom: 6,
-    maxZoom: 16,
+    zoom: 7, // starting zoomlevel
+    minZoom: 6, // minimum zoomlevel zoom out
+    maxZoom: 14 // maximum zoomlevel zoom in
 });
 
 map.on('load', () => {
-    const geslotenvisserijsource = 'collection-src'
+    const provinciegebiedsource = 'collection-src'
 
-    new OGCFeatureCollection(geslotenvisserijsource, map, {
-        url: 'https://api.pdok.nl/rvo/gesloten-gebieden-visserij/ogc/v1',
-        collectionId: 'geslotenvisserij',
+    new OGCFeatureCollection(provinciegebiedsource, map, {
+        url: 'https://api.pdok.nl/kadaster/bestuurlijkegebieden/ogc/v1',
+        collectionId: 'provinciegebied',
         limit: 100
     })
 
     map.addLayer({
-        'id': 'geslotenvisserij',
-        'source': geslotenvisserijsource,
-        'type': 'fill',
+        'id': 'provinciegebied-outline',
+        'source': provinciegebiedsource,
+        'type': 'line',
         'paint': {
-            'fill-color': '#B42222',
-            'fill-opacity': 0.7
+            'line-color': '#000000',
+            'line-width': 2
         }
-    })
+    });
 })
